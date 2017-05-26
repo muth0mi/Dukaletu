@@ -7,20 +7,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9fd70d5f-f983-42f1-bd08-36c84c9b6a21" name="Default" comment="Initial commit&#10;">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/jwrapper_00049034758.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/duka/ui/Login.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/duka/ui/Register.java" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/Duka/duka/Login.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/duka/Login.java" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Duka/duka/DatabaseHelper.class" afterPath="$PROJECT_DIR$/out/production/Duka/duka/DatabaseHelper.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Duka.iml" afterPath="$PROJECT_DIR$/Duka.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/duka/AdminDashboard.java" afterPath="$PROJECT_DIR$/src/duka/AdminDashboard.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/duka/DatabaseHelper.java" afterPath="$PROJECT_DIR$/src/duka/DatabaseHelper.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/duka/Main.java" afterPath="$PROJECT_DIR$/src/duka/Main.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/duka/UserDashboard.java" afterPath="$PROJECT_DIR$/src/duka/UserDashboard.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/style.css" afterPath="$PROJECT_DIR$/src/style.css" />
     </list>
     <ignored path="Duka.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -75,7 +63,7 @@
         <entry file="file://$PROJECT_DIR$/src/duka/ui/Register.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="318">
-              <caret line="116" column="0" selection-start-line="116" selection-start-column="0" selection-end-line="116" selection-end-column="0" />
+              <caret line="118" column="0" selection-start-line="118" selection-start-column="0" selection-end-line="118" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -97,11 +85,11 @@
         <entry file="file://$PROJECT_DIR$/src/duka/ui/Login.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="2445">
-              <caret line="274" column="35" selection-start-line="274" selection-start-column="35" selection-end-line="274" selection-end-column="35" />
+              <caret line="271" column="35" selection-start-line="271" selection-start-column="35" selection-end-line="271" selection-end-column="35" />
               <folding>
-                <element signature="imports" expanded="true" />
                 <element signature="method#start#0;class#Login#0" expanded="false" />
                 <element signature="method#startLogin#0;class#Login#0" expanded="false" />
+                <marker date="1495773564836" expanded="true" signature="25:583" ph="..." />
               </folding>
             </state>
           </provider>
@@ -861,7 +849,7 @@
       <workItem from="1495507563184" duration="12258000" />
       <workItem from="1495665680331" duration="12927000" />
       <workItem from="1495680714852" duration="15297000" />
-      <workItem from="1495741231142" duration="10648000" />
+      <workItem from="1495741231142" duration="10731000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit&#10;">
       <created>1495683970530</created>
@@ -891,11 +879,18 @@
       <option name="project" value="LOCAL" />
       <updated>1495684806625</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Initial commit&#10;">
+      <created>1495773596072</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1495773596072</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="55981000" />
+    <option name="totallyTimeSpent" value="56064000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1616" height="886" extended-state="6" />
@@ -971,9 +966,9 @@
         <state relative-caret-position="748">
           <caret line="44" column="38" selection-start-line="44" selection-start-column="38" selection-end-line="44" selection-end-column="38" />
           <folding>
-            <element signature="imports" expanded="true" />
             <element signature="method#start#0;class#Login#0" expanded="false" />
             <element signature="method#startLogin#0;class#Login#0" expanded="false" />
+            <marker date="1495773564836" expanded="true" signature="25:583" ph="..." />
           </folding>
         </state>
       </provider>
@@ -984,10 +979,10 @@
           <caret line="29" column="120" selection-start-line="29" selection-start-column="120" selection-end-line="29" selection-end-column="120" />
           <folding>
             <element signature="imports" expanded="true" />
-            <marker date="1495695975590" expanded="true" signature="842:977" ph="CREATE TABLE... users" />
-            <marker date="1495695975590" expanded="true" signature="2588:2637" ph="SELECT * FRO... users" />
-            <marker date="1495695975590" expanded="true" signature="3631:3687" ph="SELECT COUNT... users" />
-            <marker date="1495695975590" expanded="true" signature="4568:4624" ph="SELECT passw... users" />
+            <marker date="1495773568717" expanded="true" signature="841:976" ph="CREATE TABLE... users" />
+            <marker date="1495773568717" expanded="true" signature="2586:2635" ph="SELECT * FRO... users" />
+            <marker date="1495773568717" expanded="true" signature="3629:3685" ph="SELECT COUNT... users" />
+            <marker date="1495773568717" expanded="true" signature="4566:4622" ph="SELECT passw... users" />
           </folding>
         </state>
       </provider>
@@ -1033,9 +1028,9 @@
         <state relative-caret-position="1275">
           <caret line="90" column="30" selection-start-line="90" selection-start-column="30" selection-end-line="90" selection-end-column="30" />
           <folding>
-            <element signature="imports" expanded="true" />
             <element signature="method#start#0;class#Login#0" expanded="false" />
             <element signature="method#startLogin#0;class#Login#0" expanded="false" />
+            <marker date="1495773564836" expanded="true" signature="25:583" ph="..." />
           </folding>
         </state>
       </provider>
@@ -1062,10 +1057,10 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <marker date="1495695975590" expanded="true" signature="842:977" ph="CREATE TABLE... users" />
-            <marker date="1495695975590" expanded="true" signature="2588:2637" ph="SELECT * FRO... users" />
-            <marker date="1495695975590" expanded="true" signature="3631:3687" ph="SELECT COUNT... users" />
-            <marker date="1495695975590" expanded="true" signature="4568:4624" ph="SELECT passw... users" />
+            <marker date="1495773568717" expanded="true" signature="841:976" ph="CREATE TABLE... users" />
+            <marker date="1495773568717" expanded="true" signature="2586:2635" ph="SELECT * FRO... users" />
+            <marker date="1495773568717" expanded="true" signature="3629:3685" ph="SELECT COUNT... users" />
+            <marker date="1495773568717" expanded="true" signature="4566:4622" ph="SELECT passw... users" />
           </folding>
         </state>
       </provider>
@@ -1093,9 +1088,9 @@
         <state relative-caret-position="1666">
           <caret line="109" column="100" selection-start-line="109" selection-start-column="100" selection-end-line="109" selection-end-column="100" />
           <folding>
-            <element signature="imports" expanded="true" />
             <element signature="method#start#0;class#Login#0" expanded="false" />
             <element signature="method#startLogin#0;class#Login#0" expanded="false" />
+            <marker date="1495773564836" expanded="true" signature="25:583" ph="..." />
           </folding>
         </state>
       </provider>
@@ -1122,10 +1117,10 @@
           <caret line="108" column="84" selection-start-line="108" selection-start-column="84" selection-end-line="108" selection-end-column="84" />
           <folding>
             <element signature="imports" expanded="true" />
-            <marker date="1495695975590" expanded="true" signature="842:977" ph="CREATE TABLE... users" />
-            <marker date="1495695975590" expanded="true" signature="2588:2637" ph="SELECT * FRO... users" />
-            <marker date="1495695975590" expanded="true" signature="3631:3687" ph="SELECT COUNT... users" />
-            <marker date="1495695975590" expanded="true" signature="4568:4624" ph="SELECT passw... users" />
+            <marker date="1495773568717" expanded="true" signature="841:976" ph="CREATE TABLE... users" />
+            <marker date="1495773568717" expanded="true" signature="2586:2635" ph="SELECT * FRO... users" />
+            <marker date="1495773568717" expanded="true" signature="3629:3685" ph="SELECT COUNT... users" />
+            <marker date="1495773568717" expanded="true" signature="4566:4622" ph="SELECT passw... users" />
           </folding>
         </state>
       </provider>
@@ -1135,9 +1130,9 @@
         <state relative-caret-position="918">
           <caret line="66" column="8" selection-start-line="66" selection-start-column="8" selection-end-line="66" selection-end-column="8" />
           <folding>
-            <element signature="imports" expanded="true" />
             <element signature="method#start#0;class#Login#0" expanded="false" />
             <element signature="method#startLogin#0;class#Login#0" expanded="false" />
+            <marker date="1495773564836" expanded="true" signature="25:583" ph="..." />
           </folding>
         </state>
       </provider>
@@ -1217,10 +1212,10 @@
           <caret line="57" column="0" selection-start-line="57" selection-start-column="0" selection-end-line="57" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <marker date="1495695975590" expanded="true" signature="842:977" ph="CREATE TABLE... users" />
-            <marker date="1495695975590" expanded="true" signature="2588:2637" ph="SELECT * FRO... users" />
-            <marker date="1495695975590" expanded="true" signature="3631:3687" ph="SELECT COUNT... users" />
-            <marker date="1495695975590" expanded="true" signature="4568:4624" ph="SELECT passw... users" />
+            <marker date="1495773568717" expanded="true" signature="841:976" ph="CREATE TABLE... users" />
+            <marker date="1495773568717" expanded="true" signature="2586:2635" ph="SELECT * FRO... users" />
+            <marker date="1495773568717" expanded="true" signature="3629:3685" ph="SELECT COUNT... users" />
+            <marker date="1495773568717" expanded="true" signature="4566:4622" ph="SELECT passw... users" />
           </folding>
         </state>
       </provider>
@@ -1236,11 +1231,11 @@
     <entry file="file://$PROJECT_DIR$/src/duka/ui/Login.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2445">
-          <caret line="274" column="35" selection-start-line="274" selection-start-column="35" selection-end-line="274" selection-end-column="35" />
+          <caret line="271" column="35" selection-start-line="271" selection-start-column="35" selection-end-line="271" selection-end-column="35" />
           <folding>
-            <element signature="imports" expanded="true" />
             <element signature="method#start#0;class#Login#0" expanded="false" />
             <element signature="method#startLogin#0;class#Login#0" expanded="false" />
+            <marker date="1495773564836" expanded="true" signature="25:583" ph="..." />
           </folding>
         </state>
       </provider>
@@ -1256,7 +1251,7 @@
     <entry file="file://$PROJECT_DIR$/src/duka/ui/Register.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="318">
-          <caret line="116" column="0" selection-start-line="116" selection-start-column="0" selection-end-line="116" selection-end-column="0" />
+          <caret line="118" column="0" selection-start-line="118" selection-start-column="0" selection-end-line="118" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
