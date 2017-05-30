@@ -10,7 +10,7 @@ public class Main {
     public static void main(String[] args) {
 
         new DatabaseHelper().createTables();
-        new DatabaseHelper().addUser(new User("a@b.c", "    ", "admin"));
+        new DatabaseHelper().addUser(new User(200, "a@b.c", "xxxxx", "admin"));
 
         Application.launch(Login.class, args);
 

@@ -8,9 +8,9 @@ import java.sql.ResultSet;
 
 public class DatabaseHelper {
 
-    private static final String url = "jdbc:mysql://localhost/duka";
-    private static final String username = "root";
-    private static final String password = "";
+    private static final String url = "jdbc:mysql://localhost:3306/duka";
+    private static final String username = "root";  // mysql username
+    private static final String password = "ericco//23";  // mysql password
     private Connection mConnection = null;
     private PreparedStatement preparedStatement;
 
@@ -26,7 +26,10 @@ public class DatabaseHelper {
             }
 
             System.out.println("Connection is successful");
-            String query = "CREATE TABLE IF NOT EXISTS users (id INT (3) AUTO_INCREMENT, email VARCHAR (32) PRIMARY KEY , password VARCHAR (32), type VARCHAR (5) )";
+
+            // changed 'type' to 'usertype' because type is a java keyword
+            String query = "CREATE TABLE IF NOT EXISTS users (id INT (3) AUTO_INCREMENT, email VARCHAR (32) PRIMARY KEY , password VARCHAR (32), usertype VARCHAR (5) )";
+
             preparedStatement = mConnection.prepareStatement(query);
             preparedStatement.executeUpdate();
 
