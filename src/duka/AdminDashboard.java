@@ -16,6 +16,7 @@ public class AdminDashboard implements EventHandler {
 
     Stage dashboardStage;
     Button buttonLogout;
+    Button home;
 
 
     public AdminDashboard(Stage primaryStage) {
@@ -29,9 +30,13 @@ public class AdminDashboard implements EventHandler {
 
 
         Button t1 = new Button("Welcome Admin");
+        Button home = new Button("Home Page");
         buttonLogout = new Button("Logout");
         buttonLogout.setAlignment(Pos.TOP_RIGHT);
         buttonLogout.setOnAction(this);
+        home.setAlignment(Pos.TOP_LEFT);
+        home.setOnAction(this);
+
 
 
         GridPane gridPane = new GridPane();
@@ -42,6 +47,7 @@ public class AdminDashboard implements EventHandler {
 
         gridPane.getChildren().add(t1);
         gridPane.getChildren().add(buttonLogout);
+        gridPane.getChildren().add(home);
 
 
         Scene dashboardScene = new Scene(gridPane);
@@ -56,6 +62,8 @@ public class AdminDashboard implements EventHandler {
         if (event.getSource() == buttonLogout) {
             dashboardStage.close();
             new Login().onStart(dashboardStage);
+        } else if (event.getSource() == home) {
+            dashboardStage.close();
         }
 
     }

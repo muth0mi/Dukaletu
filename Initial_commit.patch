@@ -1,0 +1,1220 @@
+Index: src/duka/User.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/duka/User.java	(revision cf77a999dd8ccfcc9ef1f55a0c0c83bc7f42db57)
++++ src/duka/User.java	(revision )
+@@ -8,13 +8,6 @@
+     private String mUserType;
+ 
+ 
+-    public User( String mEmail, String mPassword, String mUserType) {
+-        this.mEmail = mEmail;
+-        this.mPassword = mPassword;
+-        this.mUserType = mUserType;
+-        
+-    }
+-
+     public User(int id, String email, String password, String userType) {
+         this.id = id;
+         this.mEmail = email;
+Index: .idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/misc.xml	(revision cf77a999dd8ccfcc9ef1f55a0c0c83bc7f42db57)
++++ .idea/misc.xml	(revision )
+@@ -38,9 +38,6 @@
+       <property name="caretWidth" class="java.lang.Integer" />
+     </properties>
+   </component>
+-  <component name="EntryPointsManager">
+-    <entry_points version="2.0" />
+-  </component>
+   <component name="JavadocGenerationManager">
+     <option name="OUTPUT_DIRECTORY" />
+     <option name="OPTION_SCOPE" value="protected" />
+@@ -59,17 +56,7 @@
+     <option name="OPEN_IN_BROWSER" value="true" />
+     <option name="OPTION_INCLUDE_LIBS" value="false" />
+   </component>
+-  <component name="ProjectLevelVcsManager" settingsEditedManually="false">
+-    <OptionsSetting value="true" id="Add" />
+-    <OptionsSetting value="true" id="Remove" />
+-    <OptionsSetting value="true" id="Checkout" />
+-    <OptionsSetting value="true" id="Update" />
+-    <OptionsSetting value="true" id="Status" />
+-    <OptionsSetting value="true" id="Edit" />
+-    <ConfirmationsSetting value="0" id="Add" />
+-    <ConfirmationsSetting value="0" id="Remove" />
+-  </component>
+-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="true" assert-keyword="true" jdk-15="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
++  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+     <output url="file://$PROJECT_DIR$/out" />
+   </component>
+ </project>
+\ No newline at end of file
+Index: src/duka/DatabaseHelper.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/duka/DatabaseHelper.java	(revision cf77a999dd8ccfcc9ef1f55a0c0c83bc7f42db57)
++++ src/duka/DatabaseHelper.java	(revision )
+@@ -8,9 +8,9 @@
+ 
+ public class DatabaseHelper {
+ 
+-    private static final String url = "jdbc:mysql://localhost/duka";
+-    private static final String username = "root";
+-    private static final String password = "";
++    private static final String url = "jdbc:mysql://localhost:3306/duka";
++    private static final String username = "root";  // mysql username
++    private static final String password = "ericco//23";  // mysql password
+     private Connection mConnection = null;
+     private PreparedStatement preparedStatement;
+ 
+@@ -26,7 +26,10 @@
+             }
+ 
+             System.out.println("Connection is successful");
+-            String query = "CREATE TABLE IF NOT EXISTS users (id INT (3) AUTO_INCREMENT, email VARCHAR (32) PRIMARY KEY , password VARCHAR (32), type VARCHAR (5) )";
++
++            // changed 'type' to 'usertype' because type is a java keyword
++            String query = "CREATE TABLE IF NOT EXISTS users (id INT (3) AUTO_INCREMENT, email VARCHAR (32) PRIMARY KEY , password VARCHAR (32), usertype VARCHAR (5) )";
++
+             preparedStatement = mConnection.prepareStatement(query);
+             preparedStatement.executeUpdate();
+ 
+Index: .idea/dataSources.local.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/dataSources.local.xml	(revision cf77a999dd8ccfcc9ef1f55a0c0c83bc7f42db57)
++++ .idea/dataSources.local.xml	(revision )
+@@ -3,7 +3,6 @@
+   <component name="dataSourceStorageLocal">
+     <data-source name="MySQL - duka@localhost" uuid="82963daf-af32-4994-8a6a-31be937c832b">
+       <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" />
+-      <secret-storage>memory</secret-storage>
+       <first-sync>true</first-sync>
+       <user-name>root</user-name>
+     </data-source>
+Index: src/duka/Main.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/duka/Main.java	(revision cf77a999dd8ccfcc9ef1f55a0c0c83bc7f42db57)
++++ src/duka/Main.java	(revision )
+@@ -10,7 +10,7 @@
+     public static void main(String[] args) {
+ 
+         new DatabaseHelper().createTables();
+-        new DatabaseHelper().addUser(new User("a@b.c", "    ", "admin"));
++        new DatabaseHelper().addUser(new User(200, "a@b.c", "xxxxx", "admin"));
+ 
+         Application.launch(Login.class, args);
+ 
+Index: src/duka/ui/Login.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/duka/ui/Login.java	(revision cf77a999dd8ccfcc9ef1f55a0c0c83bc7f42db57)
++++ src/duka/ui/Login.java	(revision )
+@@ -108,7 +108,7 @@
+                             labelEmail.setId("email_n_password_labels");
+ 
+                             textFieldEmail = new TextField();
+-                            textFieldEmail.setPromptText("johndoe@email.com");
++                            textFieldEmail.setPromptText("example@email.com");
+                             textFieldEmail.setLayoutY(86.0);
+                             textFieldEmail.setPrefWidth(415.0);
+                             AnchorPane.setLeftAnchor(textFieldEmail, 10.0);
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/workspace.xml	(revision cf77a999dd8ccfcc9ef1f55a0c0c83bc7f42db57)
++++ .idea/workspace.xml	(revision )
+@@ -6,9 +6,15 @@
+     </artifacts-to-build>
+   </component>
+   <component name="ChangeListManager">
+-    <list default="true" id="9fd70d5f-f983-42f1-bd08-36c84c9b6a21" name="Default" comment="Initial commit&#10;">
++    <list default="true" id="9fd70d5f-f983-42f1-bd08-36c84c9b6a21" name="Default" comment="Initial commit">
+       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Duka/duka/DatabaseHelper.class" afterPath="$PROJECT_DIR$/out/production/Duka/duka/DatabaseHelper.class" />
++      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" />
++      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
++      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/duka/DatabaseHelper.java" afterPath="$PROJECT_DIR$/src/duka/DatabaseHelper.java" />
++      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/duka/Main.java" afterPath="$PROJECT_DIR$/src/duka/Main.java" />
++      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/duka/User.java" afterPath="$PROJECT_DIR$/src/duka/User.java" />
++      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/duka/ui/Login.java" afterPath="$PROJECT_DIR$/src/duka/ui/Login.java" />
+     </list>
+     <ignored path="Duka.iws" />
+     <ignored path=".idea/workspace.xml" />
+@@ -44,63 +50,87 @@
+   </component>
+   <component name="FileEditorManager">
+     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+-      <file leaf-file-name="profile.fxml" pinned="true" current-in-tab="false">
+-        <entry file="file://$PROJECT_DIR$/src/profile.fxml">
+-          <provider editor-type-id="JavaFX-Scene-Builder">
+-            <state />
+-          </provider>
++      <file leaf-file-name="Register.java" pinned="true" current-in-tab="false">
++        <entry file="file://$PROJECT_DIR$/src/duka/ui/Register.java">
+           <provider selected="true" editor-type-id="text-editor">
+-            <state relative-caret-position="354">
+-              <caret line="109" column="27" selection-start-line="109" selection-start-column="23" selection-end-line="109" selection-end-column="27" />
++            <state relative-caret-position="20">
++              <caret line="1" column="0" lean-forward="true" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+               <folding>
+-                <element signature="n#HBox#0;n#children#0;n#AnchorPane#0;n#!!top" expanded="false" />
++                <element signature="imports" expanded="true" />
+               </folding>
+             </state>
+           </provider>
+         </entry>
+       </file>
+-      <file leaf-file-name="Register.java" pinned="true" current-in-tab="false">
+-        <entry file="file://$PROJECT_DIR$/src/duka/ui/Register.java">
++      <file leaf-file-name="DatabaseHelper.java" pinned="false" current-in-tab="true">
++        <entry file="file://$PROJECT_DIR$/src/duka/DatabaseHelper.java">
+           <provider selected="true" editor-type-id="text-editor">
+-            <state relative-caret-position="318">
+-              <caret line="118" column="0" selection-start-line="118" selection-start-column="0" selection-end-line="118" selection-end-column="0" />
++            <state relative-caret-position="-104">
++              <caret line="22" column="0" lean-forward="true" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
+               <folding>
+                 <element signature="imports" expanded="true" />
++                <marker date="1496158481663" expanded="true" signature="970:1109" ph="CREATE TABLE... users" />
++                <marker date="1496158481663" expanded="true" signature="2720:2769" ph="SELECT * FRO... users" />
++                <marker date="1496158481663" expanded="true" signature="3763:3819" ph="SELECT COUNT... users" />
++                <marker date="1496158481663" expanded="true" signature="4700:4756" ph="SELECT passw... users" />
+               </folding>
+             </state>
+           </provider>
+         </entry>
+       </file>
+-      <file leaf-file-name="style.css" pinned="false" current-in-tab="true">
+-        <entry file="file://$PROJECT_DIR$/out/production/Duka/style.css">
++      <file leaf-file-name="Login.java" pinned="false" current-in-tab="false">
++        <entry file="file://$PROJECT_DIR$/src/duka/ui/Login.java">
+           <provider selected="true" editor-type-id="text-editor">
+-            <state relative-caret-position="0">
+-              <caret line="0" column="15" selection-start-line="0" selection-start-column="15" selection-end-line="0" selection-end-column="15" />
+-              <folding />
++            <state relative-caret-position="530">
++              <caret line="53" column="0" lean-forward="true" selection-start-line="53" selection-start-column="0" selection-end-line="53" selection-end-column="0" />
++              <folding>
++                <element signature="method#start#0;class#Login#0" expanded="false" />
++              </folding>
+             </state>
+           </provider>
+         </entry>
+       </file>
+-      <file leaf-file-name="Login.java" pinned="false" current-in-tab="false">
+-        <entry file="file://$PROJECT_DIR$/src/duka/ui/Login.java">
++      <file leaf-file-name="User.java" pinned="false" current-in-tab="false">
++        <entry file="file://$PROJECT_DIR$/src/duka/User.java">
+           <provider selected="true" editor-type-id="text-editor">
+-            <state relative-caret-position="2445">
+-              <caret line="271" column="35" selection-start-line="271" selection-start-column="35" selection-end-line="271" selection-end-column="35" />
++            <state relative-caret-position="160">
++              <caret line="8" column="0" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+               <folding>
+-                <element signature="method#start#0;class#Login#0" expanded="false" />
+-                <element signature="method#startLogin#0;class#Login#0" expanded="false" />
+-                <marker date="1495773564836" expanded="true" signature="25:583" ph="..." />
++                <element signature="e#824#825#0" expanded="true" />
++                <element signature="e#856#857#0" expanded="true" />
+               </folding>
+             </state>
+           </provider>
+         </entry>
+       </file>
++      <file leaf-file-name="UserDashboard.java" pinned="false" current-in-tab="false">
++        <entry file="file://$PROJECT_DIR$/src/duka/UserDashboard.java">
++          <provider selected="true" editor-type-id="text-editor">
++            <state relative-caret-position="200">
++              <caret line="17" column="46" lean-forward="true" selection-start-line="17" selection-start-column="46" selection-end-line="17" selection-end-column="46" />
++              <folding />
++            </state>
++          </provider>
++        </entry>
++      </file>
++      <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
++        <entry file="file://$PROJECT_DIR$/src/duka/Main.java">
++          <provider selected="true" editor-type-id="text-editor">
++            <state relative-caret-position="220">
++              <caret line="12" column="66" lean-forward="false" selection-start-line="12" selection-start-column="66" selection-end-line="12" selection-end-column="66" />
++              <folding />
++            </state>
++          </provider>
++        </entry>
++      </file>
+       <file leaf-file-name="AdminDashboard.java" pinned="false" current-in-tab="false">
+         <entry file="file://$PROJECT_DIR$/src/duka/AdminDashboard.java">
+           <provider selected="true" editor-type-id="text-editor">
+-            <state relative-caret-position="255">
+-              <caret line="24" column="45" selection-start-line="24" selection-start-column="45" selection-end-line="24" selection-end-column="45" />
+-              <folding />
++            <state relative-caret-position="300">
++              <caret line="24" column="45" lean-forward="false" selection-start-line="24" selection-start-column="45" selection-end-line="24" selection-end-column="45" />
++              <folding>
++                <element signature="imports" expanded="false" />
++              </folding>
+             </state>
+           </provider>
+         </entry>
+@@ -121,6 +151,7 @@
+       </list>
+     </option>
+     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
++    <option name="SIGN_OFF_COMMIT" value="true" />
+   </component>
+   <component name="GradleLocalSettings">
+     <option name="externalProjectsViewState">
+@@ -131,7 +162,6 @@
+     <option name="CHANGED_PATHS">
+       <list>
+         <option value="$PROJECT_DIR$/src/duka/Dashboard.java" />
+-        <option value="$PROJECT_DIR$/src/duka/User.java" />
+         <option value="$PROJECT_DIR$/src/duka/DatabaseHelper.kt" />
+         <option value="$PROJECT_DIR$/src/duka/LoginUI.java" />
+         <option value="$PROJECT_DIR$/src/duka/Login_old.java" />
+@@ -141,10 +171,11 @@
+         <option value="$PROJECT_DIR$/src/duka/AdminDashboard.java" />
+         <option value="$PROJECT_DIR$/src/duka/UserDashboard.java" />
+         <option value="$PROJECT_DIR$/src/duka/Login.java" />
++        <option value="$PROJECT_DIR$/src/duka/ui/Register.java" />
+         <option value="$PROJECT_DIR$/src/duka/DatabaseHelper.java" />
+-        <option value="$PROJECT_DIR$/src/duka/Main.java" />
+         <option value="$PROJECT_DIR$/src/duka/ui/Login.java" />
+-        <option value="$PROJECT_DIR$/src/duka/ui/Register.java" />
++        <option value="$PROJECT_DIR$/src/duka/User.java" />
++        <option value="$PROJECT_DIR$/src/duka/Main.java" />
+       </list>
+     </option>
+   </component>
+@@ -162,20 +193,8 @@
+     </option>
+   </component>
+   <component name="ProjectFrameBounds">
+-    <option name="x" value="-8" />
+-    <option name="y" value="-8" />
+-    <option name="width" value="1616" />
+-    <option name="height" value="886" />
+-  </component>
+-  <component name="ProjectLevelVcsManager" settingsEditedManually="false">
+-    <OptionsSetting value="true" id="Add" />
+-    <OptionsSetting value="true" id="Remove" />
+-    <OptionsSetting value="true" id="Checkout" />
+-    <OptionsSetting value="true" id="Update" />
+-    <OptionsSetting value="true" id="Status" />
+-    <OptionsSetting value="true" id="Edit" />
+-    <ConfirmationsSetting value="0" id="Add" />
+-    <ConfirmationsSetting value="0" id="Remove" />
++    <option name="width" value="1366" />
++    <option name="height" value="725" />
+   </component>
+   <component name="ProjectView">
+     <navigator currentView="ProjectPane" proportions="" version="1">
+@@ -192,36 +211,25 @@
+       <foldersAlwaysOnTop value="true" />
+     </navigator>
+     <panes>
+-      <pane id="Scratches" />
+       <pane id="ProjectPane">
+         <subPane>
+           <PATH>
+             <PATH_ELEMENT>
+-              <option name="myItemId" value="Duka" />
++              <option name="myItemId" value="Dukaletu" />
+               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+             </PATH_ELEMENT>
+             <PATH_ELEMENT>
+-              <option name="myItemId" value="External Libraries" />
+-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
+-            </PATH_ELEMENT>
+-          </PATH>
+-          <PATH>
+-            <PATH_ELEMENT>
+-              <option name="myItemId" value="Duka" />
+-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+-            </PATH_ELEMENT>
+-            <PATH_ELEMENT>
+-              <option name="myItemId" value="Duka" />
++              <option name="myItemId" value="Dukaletu" />
+               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+             </PATH_ELEMENT>
+           </PATH>
+           <PATH>
+             <PATH_ELEMENT>
+-              <option name="myItemId" value="Duka" />
++              <option name="myItemId" value="Dukaletu" />
+               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+             </PATH_ELEMENT>
+             <PATH_ELEMENT>
+-              <option name="myItemId" value="Duka" />
++              <option name="myItemId" value="Dukaletu" />
+               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+             </PATH_ELEMENT>
+             <PATH_ELEMENT>
+@@ -231,11 +239,11 @@
+           </PATH>
+           <PATH>
+             <PATH_ELEMENT>
+-              <option name="myItemId" value="Duka" />
++              <option name="myItemId" value="Dukaletu" />
+               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+             </PATH_ELEMENT>
+             <PATH_ELEMENT>
+-              <option name="myItemId" value="Duka" />
++              <option name="myItemId" value="Dukaletu" />
+               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+             </PATH_ELEMENT>
+             <PATH_ELEMENT>
+@@ -249,11 +257,11 @@
+           </PATH>
+           <PATH>
+             <PATH_ELEMENT>
+-              <option name="myItemId" value="Duka" />
++              <option name="myItemId" value="Dukaletu" />
+               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+             </PATH_ELEMENT>
+             <PATH_ELEMENT>
+-              <option name="myItemId" value="Duka" />
++              <option name="myItemId" value="Dukaletu" />
+               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+             </PATH_ELEMENT>
+             <PATH_ELEMENT>
+@@ -269,45 +277,10 @@
+               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+             </PATH_ELEMENT>
+           </PATH>
+-          <PATH>
+-            <PATH_ELEMENT>
+-              <option name="myItemId" value="Duka" />
+-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+-            </PATH_ELEMENT>
+-            <PATH_ELEMENT>
+-              <option name="myItemId" value="Duka" />
+-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+-            </PATH_ELEMENT>
+-            <PATH_ELEMENT>
+-              <option name="myItemId" value="out" />
+-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+-            </PATH_ELEMENT>
+-            <PATH_ELEMENT>
+-              <option name="myItemId" value="production" />
+-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+-            </PATH_ELEMENT>
+-            <PATH_ELEMENT>
+-              <option name="myItemId" value="Duka" />
+-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+-            </PATH_ELEMENT>
+-          </PATH>
+-          <PATH>
+-            <PATH_ELEMENT>
+-              <option name="myItemId" value="Duka" />
+-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+-            </PATH_ELEMENT>
+-            <PATH_ELEMENT>
+-              <option name="myItemId" value="Duka" />
+-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+-            </PATH_ELEMENT>
+-            <PATH_ELEMENT>
+-              <option name="myItemId" value="out" />
+-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+-            </PATH_ELEMENT>
+-          </PATH>
+         </subPane>
+       </pane>
+       <pane id="PackagesPane" />
++      <pane id="Scratches" />
+       <pane id="Scope">
+         <subPane subId="Project Files">
+           <PATH>
+@@ -350,7 +323,7 @@
+     <property name="project.structure.side.proportion" value="0.2" />
+     <property name="settings.editor.selected.configurable" value="preferences.general" />
+     <property name="settings.editor.splitter.proportion" value="0.2" />
+-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../Libaries/Java/jwrapper-00049034758.zip!/" />
++    <property name="last_opened_file_path" value="$USER_HOME$/Libaries/Java/jwrapper-00049034758.zip!/" />
+     <property name="com.intellij.database.dataSource.DataSourceTemplate" value="MySQL" />
+     <property name="GenerateAntBuildDialog.enableUiFormCompile" value="true" />
+     <property name="GenerateAntBuildDialog.forceTargetJdk" value="true" />
+@@ -369,6 +342,18 @@
+       <recent name="C:\Workspace\IdeaProjects\Duka\src" />
+     </key>
+   </component>
++  <component name="RunDashboard">
++    <option name="ruleStates">
++      <list>
++        <RuleState>
++          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
++        </RuleState>
++        <RuleState>
++          <option name="name" value="StatusDashboardGroupingRule" />
++        </RuleState>
++      </list>
++    </option>
++  </component>
+   <component name="RunManager" selected="Application.Main">
+     <configuration default="false" name="Login" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+@@ -414,9 +399,10 @@
+       <module name="" />
+       <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m -ea" />
+       <option name="PROGRAM_PARAMETERS" />
++      <predefined_log_file id="idea.log" enabled="true" />
+       <method />
+     </configuration>
+-    <configuration default="true" type="AndroidRunConfigurationType" factoryName="Android Application">
++    <configuration default="true" type="AndroidRunConfigurationType" factoryName="Android App">
+       <module name="" />
+       <option name="DEPLOY" value="true" />
+       <option name="ARTIFACT_NAME" value="" />
+@@ -426,7 +412,7 @@
+       <option name="TARGET_SELECTION_MODE" value="SHOW_DIALOG" />
+       <option name="PREFERRED_AVD" value="" />
+       <option name="CLEAR_LOGCAT" value="false" />
+-      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="true" />
++      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="false" />
+       <option name="SKIP_NOOP_APK_INSTALLATIONS" value="true" />
+       <option name="FORCE_STOP_RUNNING_APP" value="true" />
+       <option name="DEBUGGER_TYPE" value="Java" />
+@@ -434,7 +420,11 @@
+       <option name="PREFERRED_AVD" value="" />
+       <Java />
+       <Profilers>
++        <option name="ENABLE_ADVANCED_PROFILING" value="true" />
++        <option name="GAPID_ENABLED" value="false" />
+         <option name="GAPID_DISABLE_PCS" value="false" />
++        <option name="SUPPORT_LIB_ENABLED" value="true" />
++        <option name="INSTRUMENTATION_ENABLED" value="true" />
+       </Profilers>
+       <option name="DEEP_LINK" value="" />
+       <option name="ACTIVITY_CLASS" value="" />
+@@ -459,7 +449,11 @@
+       <option name="PREFERRED_AVD" value="" />
+       <Java />
+       <Profilers>
++        <option name="ENABLE_ADVANCED_PROFILING" value="true" />
++        <option name="GAPID_ENABLED" value="false" />
+         <option name="GAPID_DISABLE_PCS" value="false" />
++        <option name="SUPPORT_LIB_ENABLED" value="true" />
++        <option name="INSTRUMENTATION_ENABLED" value="true" />
+       </Profilers>
+       <method />
+     </configuration>
+@@ -637,6 +631,7 @@
+       <setting name="cmdLine" value="run-app" />
+       <setting name="passParentEnv" value="true" />
+       <setting name="launchBrowser" value="true" />
++      <setting name="launchBrowserUrl" value="" />
+       <setting name="depsClasspath" value="false" />
+       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+       <method />
+@@ -662,27 +657,6 @@
+       <patterns />
+       <method />
+     </configuration>
+-    <configuration default="true" type="JUnitTestDiscovery" factoryName="JUnit Test Discovery" changeList="All">
+-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+-      <module name="" />
+-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+-      <option name="ALTERNATIVE_JRE_PATH" />
+-      <option name="PACKAGE_NAME" />
+-      <option name="MAIN_CLASS_NAME" />
+-      <option name="METHOD_NAME" />
+-      <option name="TEST_OBJECT" value="class" />
+-      <option name="VM_PARAMETERS" />
+-      <option name="PARAMETERS" />
+-      <option name="WORKING_DIRECTORY" />
+-      <option name="ENV_VARIABLES" />
+-      <option name="PASS_PARENT_ENVS" value="true" />
+-      <option name="TEST_SEARCH_SCOPE">
+-        <value defaultName="singleModule" />
+-      </option>
+-      <envs />
+-      <patterns />
+-      <method />
+-    </configuration>
+     <configuration default="true" type="JarApplication" factoryName="JAR Application">
+       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+       <envs />
+@@ -704,6 +678,19 @@
+       <envs />
+       <method />
+     </configuration>
++    <configuration default="true" type="JavaScriptTestRunnerJest" factoryName="Jest">
++      <node-interpreter value="project" />
++      <working-dir value="" />
++      <envs />
++      <scope-kind value="ALL" />
++      <method />
++    </configuration>
++    <configuration default="true" type="JavaScriptTestRunnerProtractor" factoryName="Protractor">
++      <config-file value="" />
++      <node-interpreter value="project" />
++      <envs />
++      <method />
++    </configuration>
+     <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug">
+       <method />
+     </configuration>
+@@ -774,34 +761,6 @@
+       <listeners />
+       <method />
+     </configuration>
+-    <configuration default="true" type="TestNGTestDiscovery" factoryName="TestNG Test Discovery" changeList="All">
+-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+-      <module name="" />
+-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+-      <option name="ALTERNATIVE_JRE_PATH" />
+-      <option name="SUITE_NAME" />
+-      <option name="PACKAGE_NAME" />
+-      <option name="MAIN_CLASS_NAME" />
+-      <option name="METHOD_NAME" />
+-      <option name="GROUP_NAME" />
+-      <option name="TEST_OBJECT" value="CLASS" />
+-      <option name="VM_PARAMETERS" />
+-      <option name="PARAMETERS" />
+-      <option name="WORKING_DIRECTORY" />
+-      <option name="OUTPUT_DIRECTORY" />
+-      <option name="ANNOTATION_TYPE" />
+-      <option name="ENV_VARIABLES" />
+-      <option name="PASS_PARENT_ENVS" value="true" />
+-      <option name="TEST_SEARCH_SCOPE">
+-        <value defaultName="singleModule" />
+-      </option>
+-      <option name="USE_DEFAULT_REPORTERS" value="false" />
+-      <option name="PROPERTIES_FILE" />
+-      <envs />
+-      <properties />
+-      <listeners />
+-      <method />
+-    </configuration>
+     <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
+       <node-interpreter>project</node-interpreter>
+       <node-options />
+@@ -812,7 +771,7 @@
+       <method />
+     </configuration>
+     <configuration default="true" type="js.build_tools.npm" factoryName="npm">
+-      <command value="run-script" />
++      <command value="run" />
+       <scripts />
+       <node-interpreter value="project" />
+       <envs />
+@@ -834,6 +793,30 @@
+         <item index="1" class="java.lang.String" itemvalue="Application.Login" />
+       </list>
+     </recent_temporary>
++    <configuration default="true" type="AndroidRunConfigurationType" factoryName="Android Application">
++      <module name="" />
++      <option name="DEPLOY" value="true" />
++      <option name="ARTIFACT_NAME" value="" />
++      <option name="PM_INSTALL_OPTIONS" value="" />
++      <option name="ACTIVITY_EXTRA_FLAGS" value="" />
++      <option name="MODE" value="default_activity" />
++      <option name="TARGET_SELECTION_MODE" value="SHOW_DIALOG" />
++      <option name="PREFERRED_AVD" value="" />
++      <option name="CLEAR_LOGCAT" value="false" />
++      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="true" />
++      <option name="SKIP_NOOP_APK_INSTALLATIONS" value="true" />
++      <option name="FORCE_STOP_RUNNING_APP" value="true" />
++      <option name="DEBUGGER_TYPE" value="Java" />
++      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
++      <option name="PREFERRED_AVD" value="" />
++      <Java />
++      <Profilers>
++        <option name="GAPID_DISABLE_PCS" value="false" />
++      </Profilers>
++      <option name="DEEP_LINK" value="" />
++      <option name="ACTIVITY_CLASS" value="" />
++      <method />
++    </configuration>
+   </component>
+   <component name="ShelveChangesManager" show_recycled="false">
+     <option name="remove_strategy" value="false" />
+@@ -850,6 +833,7 @@
+       <workItem from="1495665680331" duration="12927000" />
+       <workItem from="1495680714852" duration="15297000" />
+       <workItem from="1495741231142" duration="10731000" />
++      <workItem from="1496158282686" duration="2235000" />
+     </task>
+     <task id="LOCAL-00001" summary="Initial commit&#10;">
+       <created>1495683970530</created>
+@@ -890,39 +874,46 @@
+     <servers />
+   </component>
+   <component name="TimeTrackingManager">
+-    <option name="totallyTimeSpent" value="56064000" />
++    <option name="totallyTimeSpent" value="58299000" />
+   </component>
+   <component name="ToolWindowManager">
+-    <frame x="-8" y="-8" width="1616" height="886" extended-state="6" />
++    <frame x="0" y="0" width="1366" height="725" extended-state="6" />
+     <editor active="true" />
+     <layout>
+       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3273196" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
++      <window_info id="Nl-Palette" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
++      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3258786" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
++      <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3079897" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
++      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.30670926" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
++      <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.250625" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
++      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25036603" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3285528" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
++      <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
++      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
++      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3285528" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+     </layout>
+   </component>
++  <component name="TypeScriptGeneratedFilesManager">
++    <option name="processedProjectFiles" value="true" />
++  </component>
+   <component name="Vcs.Log.UiProperties">
+     <option name="RECENTLY_FILTERED_USER_GROUPS">
+       <collection />
+@@ -937,7 +928,8 @@
+   <component name="VcsManagerConfiguration">
+     <option name="CHECK_CODE_CLEANUP_BEFORE_PROJECT_COMMIT" value="true" />
+     <MESSAGE value="Initial commit&#10;" />
+-    <option name="LAST_COMMIT_MESSAGE" value="Initial commit&#10;" />
++    <MESSAGE value="Initial commit" />
++    <option name="LAST_COMMIT_MESSAGE" value="Initial commit" />
+     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
+     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
+     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
+@@ -953,10 +945,48 @@
+     <option name="FILTER_TARGETS" value="false" />
+   </component>
+   <component name="editorHistoryManager">
++    <entry file="file://$PROJECT_DIR$/src/duka/ui/Register.java">
++      <provider selected="true" editor-type-id="text-editor">
++        <state relative-caret-position="2360">
++          <caret line="118" column="0" lean-forward="false" selection-start-line="118" selection-start-column="0" selection-end-line="118" selection-end-column="0" />
++          <folding>
++            <element signature="imports" expanded="true" />
++          </folding>
++        </state>
++      </provider>
++    </entry>
++    <entry file="file://$PROJECT_DIR$/src/duka/ui/Login.java">
++      <provider selected="true" editor-type-id="text-editor">
++        <state relative-caret-position="5420">
++          <caret line="271" column="35" lean-forward="false" selection-start-line="271" selection-start-column="35" selection-end-line="271" selection-end-column="35" />
++          <folding>
++            <element signature="method#start#0;class#Login#0" expanded="false" />
++          </folding>
++        </state>
++      </provider>
++    </entry>
++    <entry file="file://$PROJECT_DIR$/src/duka/AdminDashboard.java">
++      <provider selected="true" editor-type-id="text-editor">
++        <state relative-caret-position="480">
++          <caret line="24" column="45" lean-forward="false" selection-start-line="24" selection-start-column="45" selection-end-line="24" selection-end-column="45" />
++          <folding>
++            <element signature="imports" expanded="false" />
++          </folding>
++        </state>
++      </provider>
++    </entry>
++    <entry file="file://$PROJECT_DIR$/out/production/Duka/style.css">
++      <provider selected="true" editor-type-id="text-editor">
++        <state relative-caret-position="0">
++          <caret line="0" column="15" lean-forward="false" selection-start-line="0" selection-start-column="15" selection-end-line="0" selection-end-column="15" />
++          <folding />
++        </state>
++      </provider>
++    </entry>
+     <entry file="file://$PROJECT_DIR$/src/duka/Main.java">
+       <provider selected="true" editor-type-id="text-editor">
+         <state relative-caret-position="0">
+-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
++          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+           <folding />
+         </state>
+       </provider>
+@@ -964,11 +994,9 @@
+     <entry file="file://$PROJECT_DIR$/src/duka/ui/Login.java">
+       <provider selected="true" editor-type-id="text-editor">
+         <state relative-caret-position="748">
+-          <caret line="44" column="38" selection-start-line="44" selection-start-column="38" selection-end-line="44" selection-end-column="38" />
++          <caret line="44" column="38" lean-forward="false" selection-start-line="44" selection-start-column="38" selection-end-line="44" selection-end-column="38" />
+           <folding>
+             <element signature="method#start#0;class#Login#0" expanded="false" />
+-            <element signature="method#startLogin#0;class#Login#0" expanded="false" />
+-            <marker date="1495773564836" expanded="true" signature="25:583" ph="..." />
+           </folding>
+         </state>
+       </provider>
+@@ -976,13 +1004,13 @@
+     <entry file="file://$PROJECT_DIR$/src/duka/DatabaseHelper.java">
+       <provider selected="true" editor-type-id="text-editor">
+         <state relative-caret-position="493">
+-          <caret line="29" column="120" selection-start-line="29" selection-start-column="120" selection-end-line="29" selection-end-column="120" />
++          <caret line="29" column="120" lean-forward="false" selection-start-line="29" selection-start-column="120" selection-end-line="29" selection-end-column="120" />
+           <folding>
+             <element signature="imports" expanded="true" />
+-            <marker date="1495773568717" expanded="true" signature="841:976" ph="CREATE TABLE... users" />
+-            <marker date="1495773568717" expanded="true" signature="2586:2635" ph="SELECT * FRO... users" />
+-            <marker date="1495773568717" expanded="true" signature="3629:3685" ph="SELECT COUNT... users" />
+-            <marker date="1495773568717" expanded="true" signature="4566:4622" ph="SELECT passw... users" />
++            <marker date="1496158481663" expanded="true" signature="970:1109" ph="CREATE TABLE... users" />
++            <marker date="1496158481663" expanded="true" signature="2720:2769" ph="SELECT * FRO... users" />
++            <marker date="1496158481663" expanded="true" signature="3763:3819" ph="SELECT COUNT... users" />
++            <marker date="1496158481663" expanded="true" signature="4700:4756" ph="SELECT passw... users" />
+           </folding>
+         </state>
+       </provider>
+@@ -990,7 +1018,7 @@
+     <entry file="file://$PROJECT_DIR$/src/duka/ui/Register.java">
+       <provider selected="true" editor-type-id="text-editor">
+         <state relative-caret-position="34">
+-          <caret line="2" column="18" selection-start-line="2" selection-start-column="18" selection-end-line="2" selection-end-column="18" />
++          <caret line="2" column="18" lean-forward="false" selection-start-line="2" selection-start-column="18" selection-end-line="2" selection-end-column="18" />
+           <folding>
+             <element signature="imports" expanded="true" />
+           </folding>
+@@ -1000,37 +1028,34 @@
+     <entry file="file://$PROJECT_DIR$/src/style.css">
+       <provider selected="true" editor-type-id="text-editor">
+         <state relative-caret-position="1360">
+-          <caret line="80" column="29" selection-start-line="80" selection-start-column="29" selection-end-line="80" selection-end-column="29" />
+-          <folding />
++          <caret line="80" column="29" lean-forward="false" selection-start-line="80" selection-start-column="29" selection-end-line="80" selection-end-column="29" />
+         </state>
+       </provider>
+     </entry>
+     <entry file="file://$PROJECT_DIR$/src/duka/AdminDashboard.java">
+       <provider selected="true" editor-type-id="text-editor">
+         <state relative-caret-position="272">
+-          <caret line="25" column="26" selection-start-line="25" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
+-          <folding />
++          <caret line="25" column="26" lean-forward="false" selection-start-line="25" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
++          <folding>
++            <element signature="imports" expanded="false" />
++          </folding>
+         </state>
+       </provider>
+     </entry>
+     <entry file="file://$PROJECT_DIR$/src/duka/UserDashboard.java">
+       <provider selected="true" editor-type-id="text-editor">
+         <state relative-caret-position="255">
+-          <caret line="22" column="40" selection-start-line="22" selection-start-column="40" selection-end-line="22" selection-end-column="40" />
+-          <folding>
+-            <element signature="imports" expanded="false" />
+-          </folding>
++          <caret line="22" column="40" lean-forward="false" selection-start-line="22" selection-start-column="40" selection-end-line="22" selection-end-column="40" />
++          <folding />
+         </state>
+       </provider>
+     </entry>
+     <entry file="file://$PROJECT_DIR$/src/duka/ui/Login.java">
+       <provider selected="true" editor-type-id="text-editor">
+         <state relative-caret-position="1275">
+-          <caret line="90" column="30" selection-start-line="90" selection-start-column="30" selection-end-line="90" selection-end-column="30" />
++          <caret line="90" column="30" lean-forward="false" selection-start-line="90" selection-start-column="30" selection-end-line="90" selection-end-column="30" />
+           <folding>
+             <element signature="method#start#0;class#Login#0" expanded="false" />
+-            <element signature="method#startLogin#0;class#Login#0" expanded="false" />
+-            <marker date="1495773564836" expanded="true" signature="25:583" ph="..." />
+           </folding>
+         </state>
+       </provider>
+@@ -1038,15 +1063,14 @@
+     <entry file="file://$PROJECT_DIR$/src/style.css">
+       <provider selected="true" editor-type-id="text-editor">
+         <state relative-caret-position="0">
+-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+-          <folding />
++          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+         </state>
+       </provider>
+     </entry>
+     <entry file="file://$PROJECT_DIR$/src/duka/Main.java">
+       <provider selected="true" editor-type-id="text-editor">
+         <state relative-caret-position="153">
+-          <caret line="9" column="30" selection-start-line="9" selection-start-column="30" selection-end-line="9" selection-end-column="30" />
++          <caret line="9" column="30" lean-forward="false" selection-start-line="9" selection-start-column="30" selection-end-line="9" selection-end-column="30" />
+           <folding />
+         </state>
+       </provider>
+@@ -1054,13 +1078,13 @@
+     <entry file="file://$PROJECT_DIR$/src/duka/DatabaseHelper.java">
+       <provider selected="true" editor-type-id="text-editor">
+         <state relative-caret-position="0">
+-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
++          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+           <folding>
+             <element signature="imports" expanded="true" />
+-            <marker date="1495773568717" expanded="true" signature="841:976" ph="CREATE TABLE... users" />
+-            <marker date="1495773568717" expanded="true" signature="2586:2635" ph="SELECT * FRO... users" />
+-            <marker date="1495773568717" expanded="true" signature="3629:3685" ph="SELECT COUNT... users" />
+-            <marker date="1495773568717" expanded="true" signature="4566:4622" ph="SELECT passw... users" />
++            <marker date="1496158481663" expanded="true" signature="970:1109" ph="CREATE TABLE... users" />
++            <marker date="1496158481663" expanded="true" signature="2720:2769" ph="SELECT * FRO... users" />
++            <marker date="1496158481663" expanded="true" signature="3763:3819" ph="SELECT COUNT... users" />
++            <marker date="1496158481663" expanded="true" signature="4700:4756" ph="SELECT passw... users" />
+           </folding>
+         </state>
+       </provider>
+@@ -1068,17 +1092,17 @@
+     <entry file="file://$PROJECT_DIR$/Duka.iml">
+       <provider selected="true" editor-type-id="text-editor">
+         <state relative-caret-position="0">
+-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
++          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+         </state>
+       </provider>
+     </entry>
+     <entry file="file://$PROJECT_DIR$/src/duka/User.java">
+       <provider selected="true" editor-type-id="text-editor">
+         <state relative-caret-position="833">
+-          <caret line="49" column="4" selection-start-line="49" selection-start-column="4" selection-end-line="49" selection-end-column="4" />
++          <caret line="49" column="4" lean-forward="false" selection-start-line="49" selection-start-column="4" selection-end-line="49" selection-end-column="4" />
+           <folding>
+-            <element signature="e#1012#1013#0" expanded="false" />
+-            <element signature="e#1044#1045#0" expanded="false" />
++            <element signature="e#824#825#0" expanded="true" />
++            <element signature="e#856#857#0" expanded="true" />
+           </folding>
+         </state>
+       </provider>
+@@ -1086,11 +1110,9 @@
+     <entry file="file://$PROJECT_DIR$/src/duka/ui/Login.java">
+       <provider selected="true" editor-type-id="text-editor">
+         <state relative-caret-position="1666">
+-          <caret line="109" column="100" selection-start-line="109" selection-start-column="100" selection-end-line="109" selection-end-column="100" />
++          <caret line="109" column="100" lean-forward="false" selection-start-line="109" selection-start-column="100" selection-end-line="109" selection-end-column="100" />
+           <folding>
+             <element signature="method#start#0;class#Login#0" expanded="false" />
+-            <element signature="method#startLogin#0;class#Login#0" expanded="false" />
+-            <marker date="1495773564836" expanded="true" signature="25:583" ph="..." />
+           </folding>
+         </state>
+       </provider>
+@@ -1098,15 +1120,17 @@
+     <entry file="file://$PROJECT_DIR$/src/duka/AdminDashboard.java">
+       <provider selected="true" editor-type-id="text-editor">
+         <state relative-caret-position="374">
+-          <caret line="26" column="37" selection-start-line="26" selection-start-column="37" selection-end-line="26" selection-end-column="37" />
+-          <folding />
++          <caret line="26" column="37" lean-forward="false" selection-start-line="26" selection-start-column="37" selection-end-line="26" selection-end-column="37" />
++          <folding>
++            <element signature="imports" expanded="false" />
++          </folding>
+         </state>
+       </provider>
+     </entry>
+     <entry file="file://$PROJECT_DIR$/src/duka/Main.java">
+       <provider selected="true" editor-type-id="text-editor">
+         <state relative-caret-position="68">
+-          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
++          <caret line="5" column="13" lean-forward="false" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+           <folding />
+         </state>
+       </provider>
+@@ -1114,13 +1138,13 @@
+     <entry file="file://$PROJECT_DIR$/src/duka/DatabaseHelper.java">
+       <provider selected="true" editor-type-id="text-editor">
+         <state relative-caret-position="1836">
+-          <caret line="108" column="84" selection-start-line="108" selection-start-column="84" selection-end-line="108" selection-end-column="84" />
++          <caret line="108" column="84" lean-forward="false" selection-start-line="108" selection-start-column="84" selection-end-line="108" selection-end-column="84" />
+           <folding>
+             <element signature="imports" expanded="true" />
+-            <marker date="1495773568717" expanded="true" signature="841:976" ph="CREATE TABLE... users" />
+-            <marker date="1495773568717" expanded="true" signature="2586:2635" ph="SELECT * FRO... users" />
+-            <marker date="1495773568717" expanded="true" signature="3629:3685" ph="SELECT COUNT... users" />
+-            <marker date="1495773568717" expanded="true" signature="4566:4622" ph="SELECT passw... users" />
++            <marker date="1496158481663" expanded="true" signature="970:1109" ph="CREATE TABLE... users" />
++            <marker date="1496158481663" expanded="true" signature="2720:2769" ph="SELECT * FRO... users" />
++            <marker date="1496158481663" expanded="true" signature="3763:3819" ph="SELECT COUNT... users" />
++            <marker date="1496158481663" expanded="true" signature="4700:4756" ph="SELECT passw... users" />
+           </folding>
+         </state>
+       </provider>
+@@ -1128,11 +1152,9 @@
+     <entry file="file://$PROJECT_DIR$/src/duka/ui/Login.java">
+       <provider selected="true" editor-type-id="text-editor">
+         <state relative-caret-position="918">
+-          <caret line="66" column="8" selection-start-line="66" selection-start-column="8" selection-end-line="66" selection-end-column="8" />
++          <caret line="66" column="8" lean-forward="false" selection-start-line="66" selection-start-column="8" selection-end-line="66" selection-end-column="8" />
+           <folding>
+             <element signature="method#start#0;class#Login#0" expanded="false" />
+-            <element signature="method#startLogin#0;class#Login#0" expanded="false" />
+-            <marker date="1495773564836" expanded="true" signature="25:583" ph="..." />
+           </folding>
+         </state>
+       </provider>
+@@ -1140,142 +1162,111 @@
+     <entry file="file://$PROJECT_DIR$/src/duka/AdminDashboard.java">
+       <provider selected="true" editor-type-id="text-editor">
+         <state relative-caret-position="408">
+-          <caret line="26" column="5" selection-start-line="26" selection-start-column="5" selection-end-line="26" selection-end-column="5" />
+-          <folding />
++          <caret line="26" column="5" lean-forward="false" selection-start-line="26" selection-start-column="5" selection-end-line="26" selection-end-column="5" />
++          <folding>
++            <element signature="imports" expanded="false" />
++          </folding>
+         </state>
+       </provider>
+     </entry>
+-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_131/javafx-src.zip!/javafx/event/EventHandler.java">
+-      <provider selected="true" editor-type-id="text-editor">
+-        <state relative-caret-position="357">
+-          <caret line="44" column="9" selection-start-line="44" selection-start-column="9" selection-end-line="44" selection-end-column="9" />
+-        </state>
+-      </provider>
+-    </entry>
++    <entry file="jar://C:/Program Files/Java/jdk1.8.0_131/javafx-src.zip!/javafx/event/EventHandler.java" />
+     <entry file="file://$PROJECT_DIR$/src/duka/img1.jpg" />
+     <entry file="file://$PROJECT_DIR$/src/CoarseGrid.png" />
+     <entry file="file://$PROJECT_DIR$/duka.xml" />
+     <entry file="file://$PROJECT_DIR$/Duka.iml">
+       <provider selected="true" editor-type-id="text-editor">
+         <state relative-caret-position="0">
+-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
++          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+         </state>
+       </provider>
+     </entry>
+-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_131/javafx-src.zip!/com/sun/javafx/application/LauncherImpl.java">
+-      <provider selected="true" editor-type-id="text-editor">
+-        <state relative-caret-position="102">
+-          <caret line="912" column="21" selection-start-line="912" selection-start-column="21" selection-end-line="912" selection-end-column="21" />
+-        </state>
+-      </provider>
+-    </entry>
++    <entry file="jar://C:/Program Files/Java/jdk1.8.0_131/javafx-src.zip!/com/sun/javafx/application/LauncherImpl.java" />
+     <entry file="file://$PROJECT_DIR$/src/duka/Login_old.java" />
+-    <entry file="file://$PROJECT_DIR$/src/duka/User.java">
++    <entry file="jar://C:/Program Files/Java/jdk1.8.0_131/src.zip!/java/sql/DriverManager.java" />
++    <entry file="file://$PROJECT_DIR$/src/style.css">
+       <provider selected="true" editor-type-id="text-editor">
+-        <state relative-caret-position="629">
+-          <caret line="49" column="4" selection-start-line="49" selection-start-column="4" selection-end-line="49" selection-end-column="4" />
+-          <folding>
+-            <element signature="e#1012#1013#0" expanded="false" />
+-            <element signature="e#1044#1045#0" expanded="false" />
+-          </folding>
++        <state relative-caret-position="67">
++          <caret line="56" column="52" lean-forward="false" selection-start-line="56" selection-start-column="52" selection-end-line="56" selection-end-column="52" />
+         </state>
+       </provider>
+     </entry>
+-    <entry file="file://$PROJECT_DIR$/src/duka/UserDashboard.java">
++    <entry file="file://$PROJECT_DIR$/src/duka/AdminDashboard.java">
+       <provider selected="true" editor-type-id="text-editor">
+-        <state relative-caret-position="255">
+-          <caret line="22" column="40" selection-start-line="22" selection-start-column="40" selection-end-line="22" selection-end-column="40" />
++        <state relative-caret-position="300">
++          <caret line="24" column="45" lean-forward="false" selection-start-line="24" selection-start-column="45" selection-end-line="24" selection-end-column="45" />
+           <folding>
+             <element signature="imports" expanded="false" />
+           </folding>
+         </state>
+       </provider>
+     </entry>
+-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_131/src.zip!/java/sql/DriverManager.java">
++    <entry file="file://$PROJECT_DIR$/src/profile.fxml" />
++    <entry file="file://$PROJECT_DIR$/out/production/Duka/style.css">
+       <provider selected="true" editor-type-id="text-editor">
+-        <state relative-caret-position="169">
+-          <caret line="235" column="29" selection-start-line="235" selection-start-column="29" selection-end-line="235" selection-end-column="29" />
+-        </state>
+-      </provider>
+-    </entry>
+-    <entry file="file://$PROJECT_DIR$/src/duka/Main.java">
+-      <provider selected="true" editor-type-id="text-editor">
+-        <state relative-caret-position="238">
+-          <caret line="15" column="0" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
++        <state relative-caret-position="0">
++          <caret line="0" column="15" lean-forward="false" selection-start-line="0" selection-start-column="15" selection-end-line="0" selection-end-column="15" />
+           <folding />
+         </state>
+       </provider>
+     </entry>
+-    <entry file="file://$PROJECT_DIR$/src/duka/DatabaseHelper.java">
++    <entry file="file://$PROJECT_DIR$/src/duka/ui/Register.java">
+       <provider selected="true" editor-type-id="text-editor">
+-        <state relative-caret-position="969">
+-          <caret line="57" column="0" selection-start-line="57" selection-start-column="0" selection-end-line="57" selection-end-column="0" />
++        <state relative-caret-position="20">
++          <caret line="1" column="0" lean-forward="true" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+           <folding>
+             <element signature="imports" expanded="true" />
+-            <marker date="1495773568717" expanded="true" signature="841:976" ph="CREATE TABLE... users" />
+-            <marker date="1495773568717" expanded="true" signature="2586:2635" ph="SELECT * FRO... users" />
+-            <marker date="1495773568717" expanded="true" signature="3629:3685" ph="SELECT COUNT... users" />
+-            <marker date="1495773568717" expanded="true" signature="4566:4622" ph="SELECT passw... users" />
+           </folding>
+         </state>
+       </provider>
+     </entry>
+-    <entry file="file://$PROJECT_DIR$/src/style.css">
++    <entry file="file://$PROJECT_DIR$/src/duka/ui/Login.java">
+       <provider selected="true" editor-type-id="text-editor">
+-        <state relative-caret-position="67">
+-          <caret line="56" column="52" selection-start-line="56" selection-start-column="52" selection-end-line="56" selection-end-column="52" />
+-          <folding />
++        <state relative-caret-position="530">
++          <caret line="53" column="0" lean-forward="true" selection-start-line="53" selection-start-column="0" selection-end-line="53" selection-end-column="0" />
++          <folding>
++            <element signature="method#start#0;class#Login#0" expanded="false" />
++          </folding>
+         </state>
+       </provider>
+     </entry>
+-    <entry file="file://$PROJECT_DIR$/src/duka/ui/Login.java">
++    <entry file="file://$PROJECT_DIR$/src/duka/User.java">
+       <provider selected="true" editor-type-id="text-editor">
+-        <state relative-caret-position="2445">
+-          <caret line="271" column="35" selection-start-line="271" selection-start-column="35" selection-end-line="271" selection-end-column="35" />
++        <state relative-caret-position="160">
++          <caret line="8" column="0" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+           <folding>
+-            <element signature="method#start#0;class#Login#0" expanded="false" />
+-            <element signature="method#startLogin#0;class#Login#0" expanded="false" />
+-            <marker date="1495773564836" expanded="true" signature="25:583" ph="..." />
++            <element signature="e#824#825#0" expanded="true" />
++            <element signature="e#856#857#0" expanded="true" />
+           </folding>
+         </state>
+       </provider>
+     </entry>
+-    <entry file="file://$PROJECT_DIR$/src/duka/AdminDashboard.java">
++    <entry file="file://$PROJECT_DIR$/src/duka/Main.java">
+       <provider selected="true" editor-type-id="text-editor">
+-        <state relative-caret-position="255">
+-          <caret line="24" column="45" selection-start-line="24" selection-start-column="45" selection-end-line="24" selection-end-column="45" />
++        <state relative-caret-position="220">
++          <caret line="12" column="66" lean-forward="false" selection-start-line="12" selection-start-column="66" selection-end-line="12" selection-end-column="66" />
+           <folding />
+         </state>
+       </provider>
+     </entry>
+-    <entry file="file://$PROJECT_DIR$/src/duka/ui/Register.java">
++    <entry file="file://$PROJECT_DIR$/src/duka/UserDashboard.java">
+       <provider selected="true" editor-type-id="text-editor">
+-        <state relative-caret-position="318">
+-          <caret line="118" column="0" selection-start-line="118" selection-start-column="0" selection-end-line="118" selection-end-column="0" />
+-          <folding>
+-            <element signature="imports" expanded="true" />
+-          </folding>
++        <state relative-caret-position="200">
++          <caret line="17" column="46" lean-forward="true" selection-start-line="17" selection-start-column="46" selection-end-line="17" selection-end-column="46" />
++          <folding />
+         </state>
+       </provider>
+     </entry>
+-    <entry file="file://$PROJECT_DIR$/src/profile.fxml">
+-      <provider editor-type-id="JavaFX-Scene-Builder">
+-        <state />
+-      </provider>
++    <entry file="file://$PROJECT_DIR$/src/duka/DatabaseHelper.java">
+       <provider selected="true" editor-type-id="text-editor">
+-        <state relative-caret-position="354">
+-          <caret line="109" column="27" selection-start-line="109" selection-start-column="23" selection-end-line="109" selection-end-column="27" />
++        <state relative-caret-position="-104">
++          <caret line="22" column="0" lean-forward="true" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
+           <folding>
+-            <element signature="n#HBox#0;n#children#0;n#AnchorPane#0;n#!!top" expanded="false" />
++            <element signature="imports" expanded="true" />
++            <marker date="1496158481663" expanded="true" signature="970:1109" ph="CREATE TABLE... users" />
++            <marker date="1496158481663" expanded="true" signature="2720:2769" ph="SELECT * FRO... users" />
++            <marker date="1496158481663" expanded="true" signature="3763:3819" ph="SELECT COUNT... users" />
++            <marker date="1496158481663" expanded="true" signature="4700:4756" ph="SELECT passw... users" />
+           </folding>
+-        </state>
+-      </provider>
+-    </entry>
+-    <entry file="file://$PROJECT_DIR$/out/production/Duka/style.css">
+-      <provider selected="true" editor-type-id="text-editor">
+-        <state relative-caret-position="0">
+-          <caret line="0" column="15" selection-start-line="0" selection-start-column="15" selection-end-line="0" selection-end-column="15" />
+-          <folding />
+         </state>
+       </provider>
+     </entry>
+diff --git out/production/Duka/duka/DatabaseHelper.class out/production/Duka/duka/DatabaseHelper.class
+index a3d06103d0b2fe2d7c9adcab1cfa6d9daea51735..d3e8bc1e39c48968eacd97eb13c314cead19cb7e
+GIT binary patch
+literal 4382
+zc$~GD`*Rc570178OWL)xfDsrlp<yuvO9DR%2_)vx8Y7B`EQ2MRm=K(`v^E00Sgin4
+zATJv7>N8CmO4>AO2yFumq=~_yNq_82|B3z?old8ne(!4au#r=ynf{>rJonslKIhzf
+zSAYHY=U)PN1b_CT4aZvG#<+rKywEWrBdH*zz)&#h#T1UWAdM3WPI{3+RzXfd-iHEC
+ziB+Z#MOZRQ3Qj9HBjc<WK}>sb4&M{4^P;#Qii=)6i{}(Puiyn4FM9DXjw!e#>hCLf
+zNz|8xvX@2iiVv^iHBr1SiXX`Mq0sRo1wU5s69qq2@P>rul9`d<kDky^>pdAgH`Noj
+z%ye#QhlE7~`CQS`bJnPyDH#%!QqeGTdR8<Gda-yWZ>A*pvJ}f1Nh_VtNoXr8DxS*p
+z)P|{RX~8rKx@n~1mTnnYBWFoiQ<FV7f0j!;JJY$ewVNgef};{#1NjtpUJ^~`j94i<
+zVVDVhB4Y^K^GQ83s+(!icLrV7@pMs`lPaCmd-m#<KA{(l{YIu>nAEK%O@lkx!W46#
+zDjDXq1j(p+V5111O&SHqgGID0d2&!M*ozn~39_C_jgX0i#ewohqPIg>>r3a@v<{W^
+zx=OZ`uTF@orwpsSdTro-{J}Z0&EsjJmLjAwZe;Z|L)J20i$Tk{*dQ@op#4n+I^;2p
+zVktw$%WI5>?V-3K*t#7hiyRw@1No8&Nn0aJB4s&S#CAx=&t$wQp|!I5VAYb14P9xF
+zT;6!TWG0P$X%Veua|6^Z<W)R|$5kG$M`>0vpY6_0(~IsCsflFwUNe2#FlD@@;^%mq
+z>l;K_f+l49>}7pDJsFWD$MZ$2Z|m0HZ9QTI17qg%blYo~>0~nB)3ar(j4LXBfvYm!
+zQSnRsN<w=rk+odj(u$>I(kK=uOBosOs`xeDld!5zCS9x(k?`8UaJWAa))M`DqG2tv
+zPm2vDwD6OWcp|Qes1>z9I;BNo2`#WSsP&H|hQ=c?t{Du+5}P$UPTFYy@WB55VM=TX
+zY6piSgZ;x}+7sb1ZL?NMf;lpqZOs<*p*H+zPz%a<U&U|mfr@R|F5{Yt4{@FN8f3hL
+z;7Cqnx@P6IWZ65>OigHdE~S;vk7hXsXnQ0U4-Y4V8$*s)qy5p5a9j&$of}e}G_-R=
+zaefulm_xO_hbB&N6BWP3bs4`?@q2uv;s$Q2_=6}u#!V)kid(qNyW_ODlZsmTm>H=$
+z<QX2grFHR`Bte6zxpICM?kS}+DUm4a<Kbv{Afbh{eZxb8j{S%Chlj%s|6N+Aicj!I
+zo~}+!#izoY&oHCn4rX`~RNTd^iqCOR#h>s6&tvuMiY)$8Lde-+U}z+k2!w)Pv5|z1
+zuxaK^EuT!5Ox}swnd5Xo<5{z4G-F|()QZMx{J%=$x;l*uDQumOhd1l}cLy)vn%qE!
+zoAV-@%$qU$S=jJjPQSf?hkr#?arq<<>N$N%M527p)Si>U1_~c!B)GscRPW?;kxvb;
+z)_lpT-umf0pQ3cmq8dZb?x-A%xx@6hAbOeH0vG0JW!>EUxxMoW);)r~3nN?TVO+iN
+zED0KCjbzC(MhYp8*^ejhZ#TI{cm|f%_KM^z!)7kqM`>u1VF^U)qvc3&M}^D7<rial
+zpy74yqeSf$P}$3lRG%ad6C|tCxW^kf`&4xP4bb?(@aTntk)!gi2YO<h!!3-r@|A>E
+z9XQUjydn^6{5%T#>r&p8GtOEz$|JNxpcJHCq(!tX>{s-+%>`Jsy)O{?AM<z=>-dG(
+z#_vowR-*^Kknk<`n&4r7OI=@Pe`{S|;g64}-R5o2+QT`%sVw{0dyL}}Yj5Zdq>%I(
+znr_>&JH!}kpam{0#!j}>vLtq4H){#su4?%kWrS?p-+ULY!y&)NFZ-3dXraE)r)c^M
+z)KB2``(~it7L7%0_!mb*Vs6tcmNfAmZDpr*7E2`@z791i#FhzpTX6>>@MAsp*>$sR
+z-Zm^^xttEQVHsA^@l}*-r_>s3!di3_+D?w_Lnl{lzyWN;Fh6~TD;jllQ~o<PssqH-
+zk3F_~amT#@{uDH?=QrM7g)?F5v7MD3Vi1}+dwD@;eHCY`zAl%)K-*aJrWvfbi<R*)
+z7h9|1V{TUM@i7mp)$zM{XpjpwQ{D!%`F=1$-x|&nkP!8M!v-YGK8FicFnx>{=$MB&
+zu#DNTni<f+*oPSHIA@O#!Ew52($RBt^a7o~NcUf&ivmuF(To$?cd4U^Gi5j;43`}^
+zqP3q;B^#3$%^iQo5eL)(JmG*kPYV>zUwd#+V)z~&9=n6Jer*Qp2xgtXgT)Ni+c*YE
+z<(nkIYJ-GW*DN+lxPt9nu32<4#a&(QSp=HU=kD^98=fw?+>q}fIM(KBcei`m<vR%7
+zs;4O3vN68JkG=}V18f0NIuRqrgT#1<7!$-Z%F)9_G)9z1ki=8`J9iW%JWW`~h~^o7
+zk4{mOfvcG0msZ-wdXz^g!_16gkbq0n6(e9b*R*5E4%cP0a-Uuv;wT{=V#u1Pe;2bh
+zPMfaQ1>#yY5Z7o?uM-F#Tpj;}wa1CX2n{VqqL&-GC~)b)BT<RMrg>2qY?PZKBIQ<n
+zP<&2MZd5>v)Na0EgDzpZ3VJt|uq+UONzf&NK212&1bv=vT_lKSiTHWqd=WWZ;_R!O
+zeVMuY3SPkLHrz)Da)7yh*v?r4OC4zE>Y!b!Lc3H4Z8_W>{{opkDP!y(XsysY!act>
+zy{@lGk9k{7)9zZD-cRoh(tDHi-X^^(r1uW#y-WYzBfa<O$p>WeA?aNwy_;P95y{*j
+Py^sG-^p4uE$kYD;`(7Pv
+

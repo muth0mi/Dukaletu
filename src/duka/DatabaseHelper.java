@@ -35,7 +35,7 @@ public class DatabaseHelper {
 
 
         } catch (Exception e) {
-            System.out.println("Unable to connect to db and create tables");
+            System.out.println("Tables not created.");
         }
 
     }
@@ -174,6 +174,4 @@ public class DatabaseHelper {
 
         return null;
     }
-
-
 }
