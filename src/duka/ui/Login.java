@@ -108,7 +108,7 @@ public class Login extends Application implements EventHandler {
                             labelEmail.setId("email_n_password_labels");
 
                             textFieldEmail = new TextField();
-                            textFieldEmail.setPromptText("johndoe@email.com");
+                            textFieldEmail.setPromptText("example@email.com");
                             textFieldEmail.setLayoutY(86.0);
                             textFieldEmail.setPrefWidth(415.0);
                             AnchorPane.setLeftAnchor(textFieldEmail, 10.0);
