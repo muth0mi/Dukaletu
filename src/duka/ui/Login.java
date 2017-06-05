@@ -292,6 +292,4 @@ public class Login extends Application implements EventHandler {
         }
 
     }
-
-
 }

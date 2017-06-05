@@ -29,7 +29,7 @@
 }
 
 .profileTitle {
-    -fx-font-size: 18;
+    -fx-font-size: 23;
 }
 
 .hyperlink {
@@ -76,9 +76,9 @@
     -fx-background-radius: 7, 6, 5, 4, 3, 5;
     -fx-background-insets: -3 -3 -4 -3, -3, 0, 1, 2, 0;
     -fx-font-family: "Arial";
-    -fx-font-size: 26;
+    -fx-font-size: 14;
     -fx-text-fill: linear-gradient(white, #d0d0d0);
-    -fx-padding: 10 20 10 20;
+    -fx-padding: 10 10 10 10;
 }
 
 .button:focused, .button:hover {

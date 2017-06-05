@@ -1,6 +1,8 @@
 package duka.ui;
 
 import javafx.application.Application;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -8,7 +10,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
-public class Products extends Application {
+public class Products extends Application implements EventHandler {
     public static void main(String[] args) {
         launch(args);
     }
@@ -28,7 +30,10 @@ public class Products extends Application {
         TextField name = new TextField();
         name.setPromptText("Product Name");
         TextField price = new TextField();
+        price.setPromptText("Price");
         TextField quantity = new TextField();
+        quantity.setPromptText("Quantity");
+
 
         Label title = new Label("Products Inventory");
         Label name_label = new Label("Product Name: ");
@@ -60,6 +65,11 @@ public class Products extends Application {
 
         primaryStage.setScene(product_scene);
         primaryStage.show();
+    }
+
+    @Override
+    public void handle(Event event) {
+
     }
 }
 

@@ -64,6 +64,7 @@ public class AdminDashboard implements EventHandler {
             new Login().onStart(dashboardStage);
         } else if (event.getSource() == home) {
             dashboardStage.close();
+
         }
 
     }
